@@ -4,24 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
-public class BaseLiftDiffCallback <T extends ListDiffInterface<BaseLiftDiffCallback>> extends DiffUtil.ItemCallback<DiffUtil.ItemCallback> {
-    T baseLiftDiffCallback;
+public class BaseLiftDiffCallback <T extends ListDiffInterface<T>> extends DiffUtil.ItemCallback<T> {
     @Override
-    public boolean areItemsTheSame(@NonNull DiffUtil.ItemCallback oldItem, @NonNull DiffUtil.ItemCallback newItem) {
-        baseLiftDiffCallback = (T) oldItem;
-        return baseLiftDiffCallback.theSameAs((BaseLiftDiffCallback) newItem);
+    public boolean areItemsTheSame(@NonNull T oldItem, @NonNull T newItem) {
+        return oldItem.theSameAs(newItem);
 
     }
 
     @Override
-    public boolean areContentsTheSame(@NonNull DiffUtil.ItemCallback oldItem, @NonNull DiffUtil.ItemCallback newItem) {
-        baseLiftDiffCallback = (T) oldItem;
-        return baseLiftDiffCallback.equals(newItem);
+    public boolean areContentsTheSame(@NonNull T oldItem, @NonNull T newItem) {
+        return oldItem.equals(newItem);
     }
 
     @Nullable
     @Override
-    public Object getChangePayload(@NonNull DiffUtil.ItemCallback oldItem, @NonNull DiffUtil.ItemCallback newItem) {
+    public Object getChangePayload(@NonNull T oldItem, @NonNull T newItem) {
         return newItem;
     }
 
